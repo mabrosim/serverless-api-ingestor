@@ -1,0 +1,49 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# AWS/SAM
+.aws-sam/
+samconfig.toml
+*.pem
+.aws/
+
+# Secrets/config overrides
+.env
+.env.*
+!*.example
+config.local.yaml
+config.local.*.yaml
+
+# Runtime outputs
+*.jsonl
+*-export.json
+*-export.jsonl
+.smoke-response.json
+
+# Editors/OS
+.DS_Store
+.idea/
+/.vscode/
+
+# Local project guidance and historical planning
+/AGENTS.md
+/TODO.md
+/docs/backbone-rework-proposal.md
+
+# Ignore generated GitHub AI assets; preserve project workflows and actions.
+.github/**
+!.github/workflows/
+!.github/workflows/**
+!.github/actions/
+!.github/actions/**
+
+tmp/

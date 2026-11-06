@@ -1,0 +1,48 @@
+# Sole user-edited application/deployment config. No descriptors or implicit selections.
+# Implement/review provider fetch + normalize and sanitized fixture/contract tests first.
+# Fill required null/empty values below; keep private settings out of Git.
+# Run make check for code health, then make validate for local readiness.
+# Obtain cost approval before make deploy; inspect and confirm its CloudFormation changeset.
+# Validation cannot prove live API/account/credentials. Scheduling remains disabled by choice.
+application:
+  stack_name: null # Required identity; STACK_NAME may explicitly override this.
+  environment: null # Required short lowercase label, e.g. dev.
+provider:
+  name: null # Implement/register adapter; included example is open_meteo.
+  base_url: null # Required HTTPS URL; weather uses https://api.open-meteo.com.
+  credential_parameter_name: null # Optional SSM reference, never a secret value.
+  options:
+    latitude: null # Weather requires decimal string; synthetic example: "0.0".
+    longitude: null # Weather requires decimal string; synthetic example: "0.0".
+    site: null # Stable stream identity, e.g. example-site; not stored separately.
+    measurements: [] # Required selected fields declared ONCE here, not in storage.
+    # Weather entry: { field: temperature_2m, name: temperature, type: N, unit: degC }
+    # Also supports apparent_temperature (N/degC), relative_humidity_2m (N/%).
+    # Names become required native row attributes; must not collide with keys/TTL.
+schedule:
+  expression: null # Required rate or UTC cron, e.g. rate(15 minutes).
+  enabled: false # Valid finished configuration may keep scheduling disabled.
+  flexible_time_window: false
+  maximum_retry_attempts: 2
+  maximum_event_age_seconds: 300
+runtime:
+  memory_mb: 128
+  timeout_seconds: 20
+  architecture: arm64
+logging:
+  level: INFO
+  retention_days: 14
+storage:
+  table_name: null # Derived from explicitly configured effective stack, including STACK_NAME.
+  billing_mode: PROVISIONED # Base capacity charges persist with scheduling disabled.
+  provisioned_throughput:
+    read_capacity_units: 1
+    write_capacity_units: 1
+  partition_key: { name: null, type: null } # S/N/B; numeric partition is UTC YYYYMMDD.
+  sort_key: { name: null, type: null } # N: whole-second source Unix time; S/B retain identity.
+  # Numeric date/time keys require one stream per table; same-time streams overwrite.
+  ttl: { attribute_name: null, retention_days: 90 } # Required name, distinct from keys/fields.
+  point_in_time_recovery: false
+alarms:
+  enabled: false
+  notification_topic_arn: null

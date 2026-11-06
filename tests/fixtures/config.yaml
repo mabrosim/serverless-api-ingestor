@@ -1,0 +1,40 @@
+application:
+  stack_name: serverless-api-ingestor-dev
+  environment: dev
+provider:
+  name: open_meteo
+  base_url: https://api.open-meteo.com
+  credential_parameter_name: null
+  options:
+    latitude: "0.0"
+    longitude: "0.0"
+    site: example-site
+    measurements:
+      - { field: temperature_2m, name: temperature, type: N, unit: degC }
+      - { field: apparent_temperature, name: apparent, type: N, unit: degC }
+schedule:
+  expression: rate(15 minutes)
+  enabled: false
+  flexible_time_window: false
+  maximum_retry_attempts: 2
+  maximum_event_age_seconds: 300
+runtime:
+  memory_mb: 128
+  timeout_seconds: 20
+  architecture: arm64
+logging:
+  level: INFO
+  retention_days: 14
+storage:
+  table_name: null
+  billing_mode: PROVISIONED
+  provisioned_throughput:
+    read_capacity_units: 1
+    write_capacity_units: 1
+  partition_key: { name: date, type: N }
+  sort_key: { name: ts, type: N }
+  ttl: { attribute_name: expts, retention_days: 90 }
+  point_in_time_recovery: false
+alarms:
+  enabled: false
+  notification_topic_arn: null

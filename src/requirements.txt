@@ -1,0 +1,2 @@
+# Code-only SAM build: boto3, botocore and urllib3 come from the managed Lambda runtime.
+# Local development dependencies are declared in pyproject.toml's dev extra.

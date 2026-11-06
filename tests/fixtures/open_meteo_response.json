@@ -1,0 +1,16 @@
+{
+    "timezone": "GMT",
+    "utc_offset_seconds": 0,
+    "current_units": {
+        "time": "iso8601",
+        "temperature_2m": "\u00b0C",
+        "apparent_temperature": "\u00b0C",
+        "relative_humidity_2m": "%"
+    },
+    "current": {
+        "time": "2026-10-09T12:00",
+        "temperature_2m": 20.25,
+        "apparent_temperature": 19.5,
+        "relative_humidity_2m": 60
+    }
+}

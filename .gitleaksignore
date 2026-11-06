@@ -1,0 +1,5 @@
+# Verified initial-commit false positives: generic-api-key captures a boolean
+# keyword in mocked SSM assertions, not a credential. Exact history only;
+# current tests use low-entropy synthetic values and neutral parameter names.
+764077e12c82e37100da98850eeb03aaacaafc87:tests/unit/test_ingestion.py:generic-api-key:109
+764077e12c82e37100da98850eeb03aaacaafc87:tests/unit/test_ingestion.py:generic-api-key:249

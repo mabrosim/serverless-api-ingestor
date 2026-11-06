@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "serverless-api-ingestor"
+version = "0.1.0"
+description = "Scheduled external API ingestion into DynamoDB"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "boto3>=1.35,<2",
+  "boto3-stubs[dynamodb,ssm]>=1.35,<2",
+  "botocore>=1.35,<2",
+  "cfn-lint>=1.20,<2",
+  "moto[dynamodb,ssm]>=5.0,<6",
+  "pre-commit>=4,<5",
+  "pytest>=9.1,<10",
+  "pytest-cov>=6,<8",
+  "pyyaml>=6.0,<8",
+  "ruff>=0.9,<1",
+  "urllib3>=2.2,<3",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers --strict-config --cov=scheduled_ingestor --cov-report=term-missing --cov-fail-under=100"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["scheduled_ingestor"]
+patch = ["subprocess"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
